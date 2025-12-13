@@ -1,0 +1,24 @@
+[project]
+name = "webapp"
+version = "0.1.0"
+description = "Assignment for RenewMe's Full-Stack intern position"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.17.2",
+    "bcrypt==4.0.1",
+    "fastapi>=0.124.4",
+    "passlib[bcrypt]>=1.7.4",
+    "psycopg2>=2.9.11",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.12.0",
+    "python-jose[cryptography]>=3.5.0",
+    "sqlalchemy>=2.0.45",
+    "uvicorn>=0.38.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.0",
+    "ruff>=0.14.9",
+]
