@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     db_url: str
 
@@ -13,9 +14,10 @@ class Settings(BaseSettings):
         """Database connection string for alembic migrations."""
         return self.db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 
-    Class config():
+    class Config:
         env_file = ".env"
         extra = "ignore"
         from_attributes = True
+
 
 settings = Settings()
