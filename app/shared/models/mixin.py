@@ -1,16 +1,16 @@
-from uuid import UUID, uuid4
+import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Column, func
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy import DateTime, func
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class BaseModelMixin:
-    id: Mapped[UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid4
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4
     )
-    created_at: Mapped[datetime] = Column(
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
     updated_at: Mapped[datetime] = mapped_column(

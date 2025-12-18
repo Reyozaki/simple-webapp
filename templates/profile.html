@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ user.username }} Profile</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 20px;
+      color: #2f2f2f;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Profile Details</h2>
+
+  <p><strong>Full Name:</strong> {{ user.fname }} {{ user.lname }}</p>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <p><strong>Address:</strong> {{ user.address }}</p>
+  <p><strong>Contact:</strong> {{ user.contact }}</p>
+</body>
+</html>

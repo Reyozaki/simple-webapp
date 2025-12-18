@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/api.js" defer></script>
+  <script src="/static/js/pdf.js" defer></script>
+  <script src="/static/js/profile.js" defer></script>
+  <script src="/static/js/admin.js" defer></script> <script src="/static/js/dashboard.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Dashboard</h2>
+
+    <div id="tabs">
+      <button id="profileTab" class="tab-button">Profile</button>
+      <button id="usersTab" class="tab-button">Users</button>
+      <button id="logoutBtn" class="tab-button">Logout</button>
+    </div>
+
+    <div id="profile" class="tab">
+      <div id="profileContent"></div>
+    </div>
+
+    <div id="users" class="tab">
+      <h3>User List</h3>
+        <div class="user-toolbar">
+          <input type="text" id="addressFilter" placeholder="Filter by address..."/>
+          <button id="searchUsersBtn">Search</button>
+          <span id="totalUsers" class="total-count"></span>
+        </div>
+      <div id="userList"></div>
+      <div id="pagination"></div>
+      <button id="downloadUsersPdfBtn">Download Users PDF</button>
+
+      <h3>Create / Update User</h3>
+      <form id="createUserForm">
+        <input type="hidden" id="userId">
+        <input type="text" id="fname" placeholder="First Name" required>
+        <input type="text" id="lname" placeholder="Last Name" required>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password (update- blank tokeep old password)">
+        <input type="text" id="role" placeholder="Role (admin/user)" required>
+        <input type="text" id="address" placeholder="Address">
+        <input type="email" id="contact" placeholder="Email">
+        <button type="submit">Save User</button>
+      </form>
+      <p id="message"></p>
+    </div>
+  </div>
+</body>
+</html>

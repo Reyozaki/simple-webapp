@@ -4,6 +4,9 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     db_url: str
 
+    algorithm: str
+    secret_key: str
+
     @property
     def async_db_url(self) -> str:
         """Database connection string for async functions."""
@@ -12,7 +15,9 @@ class Settings(BaseSettings):
     @property
     def sync_db_url(self) -> str:
         """Database connection string for alembic migrations."""
-        return self.db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+        return self.db_url.replace(
+            "postgresql://", "postgresql+psycopg2://", 1
+        ).replace("@postgres_db", "@localhost", 1)
 
     class Config:
         env_file = ".env"
