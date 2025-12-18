@@ -1,7 +1,7 @@
 # Instructions
 Clone this repository
 ```
-git clone git@github:Reyozaki/simple-webapp.git
+git clone git@github.com:Reyozaki/simple-webapp.git
 ```
 
 ## Requirements
@@ -33,7 +33,7 @@ sudo pacman -S base-devel
 ```
 
 ## Regular Setup
-Using make, `make help` for available commands. Configure `.env` first, instructions below.
+Using make, `make help` for available commands. Configure `.env` first, instructions [below](https://github.com/Reyozaki/simple-webapp?tab=readme-ov-file#configure-environment-variables).
 ```
 # build webapp image
 make docker-build
