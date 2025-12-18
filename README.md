@@ -53,8 +53,8 @@ make docker-clean
 
 ## Use the Webapp
 Server will run on localhost port 8000. 
-- SwaggerDocs [here](localhost:8000/docs)
-- Login Page [here](localhost:8000/static/html/login.html)
+- SwaggerDocs [localhost:8000/docs](http://localhost:8000/docs)
+- Login Page [localhost:8000/static/html/login.html](http://localhost:8000/static/html/login.html)
 
 ### Features
 - login:
