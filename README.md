@@ -1,7 +1,7 @@
 # Instructions
 Clone this repository
 ```
-git clone git@github:Reyozaki/
+git clone git@github:Reyozaki/simple-webapp.git
 ```
 
 ## Requirements
