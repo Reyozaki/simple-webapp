@@ -116,6 +116,7 @@ function editUser(userId) {
       document.getElementById("address").value = user.address || "";
       document.getElementById("contact").value = user.contact || "";
       document.getElementById("password").value = "";
+      document.getElementById("password").placeholder = "Leave blank to keep old";
     });
 }
 
@@ -132,7 +133,7 @@ function initCreateUserForm() {
     const fname = document.getElementById("fname").value.trim();
     const lname = document.getElementById("lname").value.trim();
     const username = document.getElementById("username").value.trim();
-    const role = document.getElementById("role").value.trim();
+    const role = document.getElementById("admin").value.trim() || document.getElementById("user").value.trim() ;
     const address = document.getElementById("address").value.trim();
     const contact = document.getElementById("contact").value.trim();
     const password = document.getElementById("password").value;

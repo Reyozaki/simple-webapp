@@ -80,6 +80,35 @@ th, td {
   text-align: left;
 }
 
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.form-group label {
+  width: 120px;
+  text-align: right;
+  font-weight: bold;
+  margin-left: 150px;
+}
+
+.role-radio label{
+  margin-left: 0px;
+}
+
+.form-group input {
+  flex: 1;
+  max-width: 300px;
+  margin-left: 50px;
+}
+
+.role-radio{
+  margin-left: 150px;
+  display:flex;
+  align-items: center;
+}
+
 #pagination {
   display: flex;
   gap: 6px;

@@ -8,6 +8,11 @@ git clone https://github.com/Reyozaki/simple-webapp.git
 git clone git@github.com:Reyozaki/simple-webapp.git
 ```
 
+Open simple-webapp directory
+```
+cd simple-webapp
+```
+
 ## Requirements
 - Python 3.12
 - uv package manager: [Github](https://github.com/astral-sh/uv)
