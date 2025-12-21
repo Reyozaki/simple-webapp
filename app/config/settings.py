@@ -15,9 +15,7 @@ class Settings(BaseSettings):
     @property
     def sync_db_url(self) -> str:
         """Database connection string for alembic migrations."""
-        return self.db_url.replace(
-            "postgresql://", "postgresql+psycopg2://", 1
-        )
+        return self.db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 
     class Config:
         env_file = ".env"

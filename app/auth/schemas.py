@@ -11,7 +11,7 @@ class Token(BaseModel):
 
 
 class UserOut(BaseModel):
-    id: str
+    id: str | UUID
     role: str
 
 

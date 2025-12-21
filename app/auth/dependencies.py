@@ -9,7 +9,7 @@ from jose.exceptions import ExpiredSignatureError, JWTError
 
 from app.auth.exceptions import NotAuthorizedException
 from app.auth.schemas import CurrentUser
-from app.auth.services import get_user_info
+from app.auth.services import identify_user
 from app.config.settings import settings
 from app.core.dependencies import DBSession
 from app.core.exceptions import ForbiddenException
@@ -36,7 +36,7 @@ async def get_current_user(
     except ExpiredSignatureError:
         raise
 
-    user = await get_user_info(db, user_id)
+    user = await identify_user(db, user_id)
     user_scopes = [user.role]
     for scope in security_scopes.scopes:
         if scope not in user_scopes:

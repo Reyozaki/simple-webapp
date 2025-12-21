@@ -9,7 +9,7 @@ from app.admin.services import get_user_list
 from app.auth.dependencies import user_auth
 from app.auth.exceptions import NotAuthorizedException
 from app.core.dependencies import DBSession, Pagination, get_pagination
-from app.core.exceptions import NotFoundException
+from app.core.exceptions import ForbiddenException, NotFoundException
 from app.core.utils import hash_password
 from app.shared.models.base import Users
 from app.shared.schemas.responses import PaginationOut
@@ -133,6 +133,8 @@ async def delete_user(
         existing_user = await db.get(Users, user_id)
         if not existing_user:
             raise NotFoundException("User not found.")
+        if existing_user.id == user.id:
+            raise ForbiddenException("Cannot delete your own account.")
         else:
             await db.delete(existing_user)
             await db.commit()

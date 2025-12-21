@@ -1,7 +1,7 @@
 [project]
 name = "webapp"
 version = "0.1.0"
-description = "Assignment for RenewMe's Full-Stack intern position"
+description = "simple web using fastapi and staticfiles for frontend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

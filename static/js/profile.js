@@ -6,18 +6,9 @@ function parseJwt(token) {
   }
 }
 
-function isValidUUID(uuid) {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid);
-}
-
 async function loadProfile() {
   const payload = parseJwt(localStorage.getItem("token"));
   const profileContent = document.getElementById("profileContent");
-
-  if (!payload.sub) {
-    profileContent.textContent = "Invalid token. User ID missing.";
-    return;
-  }
 
   try {
     const res = await apiFetch(`/user/profile/${payload.sub.trim()}`);
@@ -42,34 +33,32 @@ async function loadProfile() {
 async function downloadProfilePdf() {
   const payload = parseJwt(localStorage.getItem("token"));
   const userId = payload.sub?.trim();
-
-  if (!userId) {
-    alert("User ID missing");
-    return;
-  }
-
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`/user/profile/pdf?user_id=${userId}`, {
-    headers: {
-      "Authorization": `Bearer ${token}`
+  try {
+    const res = await fetch(`/user/pdf?user_id=${userId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      throw new Error(`Server Error: ${res.status}`);
     }
-  });
 
-  if (!res.ok) {
-    const err = await res.text();
-    console.error("PDF download failed:", err);
-    alert("Failed to download PDF");
-    return;
+    const blob = await res.blob();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "profile.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(link.href);
+
+  } catch (err) {
+    console.error("Download failed:", err);
+    alert("Failed to download PDF.");
   }
-
-  const blob = await res.blob();
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "profile.pdf";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
 }
 
 window.loadProfile = loadProfile;

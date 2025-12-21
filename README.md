@@ -1,6 +1,10 @@
 # Instructions
 Clone this repository
 ```
+# HTTPS
+git clone https://github.com/Reyozaki/simple-webapp.git
+
+# SSH
 git clone git@github.com:Reyozaki/simple-webapp.git
 ```
 
@@ -53,8 +57,9 @@ make docker-clean
 
 ## Use the Webapp
 Server will run on localhost port 8000. 
-- SwaggerDocs [localhost:8000/docs](http://localhost:8000/docs)
-- Login Page [localhost:8000/static/html/login.html](http://localhost:8000/static/html/login.html)
+- Health check — [localhost:8000/](http://localhost:8000/)
+- SwaggerDocs — [localhost:8000/docs](http://localhost:8000/docs)
+- Login Page — [localhost:8000/static/html/login.html](http://localhost:8000/static/html/login.html)
 
 ### Features
 - login:
@@ -76,7 +81,7 @@ Server will run on localhost port 8000.
 
 - PDF generation:
   - Users page: Download users list in pdf.
-  - Profile page: Download user details in pdf. **(Not working)**
+  - Profile page: Download user details in pdf.
 
 - Data Filtering: Filter by address.
 
@@ -97,7 +102,14 @@ uv sync --dev
 
 Activate your virtual environment.
 ```bash
+# linux using bash
 source .venv/bin/activate
+
+# windows using powershell
+.\\venv\\Scripts\activate.bat
+
+# windows using bash/WSL
+source venv/Scripts/activate
 ```
 or use `uv run` before every command that uses python packages.
 
@@ -109,7 +121,7 @@ Duplicate `.env.example` and rename it as `.env`, open `.env` file and change:
 - username-> postgres
 - password-> postgres
 - database-> webapp
-- host-> postgres_db (docker cointainer with postgres)
+- host-> postgres (docker compose service containing postgres image)
 
 ### Database
 Use PostgreSQL through docker container.
@@ -118,9 +130,17 @@ Use PostgreSQL through docker container.
 docker compose -f docker/compose.dev.yaml -d
 ```
 
-Migrate latest version of the database model.
+Database Migrations
 ```
+# migrate existing versions
 python scripts/migration.py
+
+or
+
+(uv run) alembic upgrade head
+
+# create a new migration file for database if schema is modified change
+(uv run) alembic revision --autogenerate -m <change_title>
 ```
 
 Add an admin user for login and actions.
@@ -145,57 +165,43 @@ Disclaimer: Gen AI/LLMs used for some frontend content, mainly styling and layou
 - Backend-Frontend connection: StaticFiles from FastApi
 
 # Structure
+Modular monolith approach for the backend, which runs the frontend through static file mounting.
 ```
 .
 ├── alembic
 │   ├── env.py
 │   ├── README
 │   ├── script.py.mako
-│   └── versions
-│       ├── 17ff0663bc3f_add_user_data.py
-│       ├── 47dc6e9da235_users_table.py
-│       ├── 64c4665bb6da_update.py
-│       ├── 7973250a27f5_remove_password_char_limit_2.py
-│       └── e56751fa3090_remove_password_char_limit.py
+│   └── versions/
 ├── alembic.ini
 ├── app
 │   ├── admin
-│   │   ├── __init__.py
 │   │   ├── routers.py
 │   │   ├── schemas.py
 │   │   └── services.py
 │   ├── auth
 │   │   ├── dependencies.py
 │   │   ├── exceptions.py
-│   │   ├── __init__.py
 │   │   ├── routers.py
 │   │   ├── schemas.py
 │   │   └── services.py
 │   ├── config
 │   │   ├── database.py
-│   │   ├── __init__.py
 │   │   └── settings.py
 │   ├── core
 │   │   ├── dependencies.py
 │   │   ├── exceptions.py
-│   │   ├── __init__.py
 │   │   └── utils.py
-│   ├── __init__.py
 │   ├── main.py
 │   ├── shared
-│   │   ├── __init__.py
 │   │   ├── models
 │   │   │   ├── base.py
-│   │   │   ├── __init__.py
 │   │   │   └── mixin.py
 │   │   ├── schemas
-│   │   │   ├── __init__.py
 │   │   │   └── responses.py
 │   │   └── services
-│   │       ├── __init__.py
 │   │       └── pdf_generation.py
 │   └── user
-│       ├── __init__.py
 │       ├── routers.py
 │       ├── schemas.py
 │       └── services.py
@@ -205,6 +211,7 @@ Disclaimer: Gen AI/LLMs used for some frontend content, mainly styling and layou
 ├── Makefile
 ├── pyproject.toml
 ├── README.md
+├── sample/
 ├── scripts
 │   ├── add_admin.py
 │   ├── migration.py
@@ -227,6 +234,5 @@ Disclaimer: Gen AI/LLMs used for some frontend content, mainly styling and layou
 │   └── users.html
 └── uv.lock
 
-20 directories, 60 files
+21 directories, 58 files
 ```
-

@@ -19,9 +19,6 @@ STATIC_DIR = BASE_DIR / "static"
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
-def main():
-    print("Hello from webapp!")
-
-
-if __name__ == "__main__":
-    main()
+@app.get("/")
+def health() -> dict[str, str]:
+    return {"status": "healthy"}

@@ -1,10 +1,10 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import Response
-from sqlalchemy import select
 
 from app.auth.dependencies import user_auth
+from app.auth.services import identify_user
 from app.core.dependencies import DBSession
 from app.core.exceptions import ForbiddenException, NotFoundException
 from app.shared.models.base import Users
@@ -46,20 +46,25 @@ async def user_profile(db: DBSession, user: user_auth, user_id: UUID) -> UserInf
         raise err
 
 
-@router.get("/profile/pdf")
-async def profile_pdf(user: user_auth, user_id: str, db: DBSession):
+@router.get("/pdf")
+async def profile_pdf(
+    user: user_auth,
+    db: DBSession,
+    user_id: str = Query(...),
+):
+    user_info = await identify_user(db, user_id)
+    if not user_info:
+        raise NotFoundException("Error retrieving User Details")
+
     if "admin" not in user.scopes and user.id != user_id:
-        raise ForbiddenException
+        raise ForbiddenException()
 
-    uuid = UUID(user_id)
-    stmt = select(Users).where(Users.id == uuid)
-    result = await db.execute(stmt)
-    user_info = result.scalars().first()
+    user_details = await db.get(Users, user_info.id)
 
-    pdf = await render_pdf("profile.html", {"user": user_info})
+    pdf = await render_pdf("profile.html", {"user": user_details})
 
     return Response(
-        pdf,
+        content=pdf,
         media_type="application/pdf",
         headers={"Content-Disposition": "attachment; filename=profile.pdf"},
     )

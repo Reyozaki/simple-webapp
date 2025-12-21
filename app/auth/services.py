@@ -53,7 +53,7 @@ async def create_access_token(
     return token
 
 
-async def get_user_info(db: DBSession, user_id: str) -> UserOut | bool:
+async def identify_user(db: DBSession, user_id: str) -> UserOut | bool:
     stmt = select(Users).where(Users.id == user_id)
     result = await db.execute(stmt)
     user_info = result.scalar_one()
@@ -61,7 +61,7 @@ async def get_user_info(db: DBSession, user_id: str) -> UserOut | bool:
         return False
 
     return UserOut(
-        id=str(user_info.id),
+        id=user_info.id,
         role=user_info.role,
     )
 
