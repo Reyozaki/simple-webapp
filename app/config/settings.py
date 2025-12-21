@@ -17,7 +17,7 @@ class Settings(BaseSettings):
         """Database connection string for alembic migrations."""
         return self.db_url.replace(
             "postgresql://", "postgresql+psycopg2://", 1
-        ).replace("@postgres_db", "@localhost", 1)
+        )
 
     class Config:
         env_file = ".env"

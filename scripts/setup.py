@@ -19,7 +19,7 @@ def setup(server_only=False):
             print("Running migrations and adding admin data...")
 
             # let postgres database run first
-            print("Waiting for posgres...")
+            print("Waiting for postgres...")
             time.sleep(5)
 
             # execute database migrations once
