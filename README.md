@@ -10,7 +10,8 @@ git clone git@github.com:Reyozaki/simple-webapp.git
 
 ## Requirements
 - Python 3.12
-- uv package manager: [https://github.com/astral-sh/uv](https://github.com/astral-sh/uv)
+- uv package manager: [Github](https://github.com/astral-sh/uv)
+- Docker: [Docker-desktop](https://www.docker.com/products/docker-desktop/)
 - make (for Makefile)
 
 ## Installation
@@ -18,6 +19,9 @@ Install uv package manager:
 ```
 # install using pip
 pip install uv
+
+# Mac, with homebrew
+brew install uv
 ```
 
 Check if make is installed, in terminal:
@@ -27,17 +31,19 @@ make --version
 
 If not installed:
 - For Windows, install from [GNUWin32](https://gnuwin32.sourceforge.net/packages/make.htm)
-- For Linux or WSL,
 ```
-# others
+# Linux
 sudo apt-get install make
 
-# arch
+# Arch
 sudo pacman -S base-devel
+
+# Mac
+brew install make
 ```
 
 ## Regular Setup
-Using make, `make help` for available commands. Configure `.env` first, instructions [below](https://github.com/Reyozaki/simple-webapp?tab=readme-ov-file#configure-environment-variables).
+Using make, `make help` for available commands. Configure `.env` first, instructions [below](https://github.com/Reyozaki/simple-webapp?tab=readme-ov-file#configure-environment-variables).<br> **Open Docker-desktop if available(background)**
 ```
 # build webapp image
 make docker-build
