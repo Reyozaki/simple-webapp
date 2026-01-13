@@ -163,10 +163,7 @@ python scripts/add_admin.py
 ```
 uvicorn app.main:app --reload
 ```
-it will run on localhost port 8000. SwaggerDocs [here](localhost:8000/docs)
-
-
-Disclaimer: Gen AI/LLMs used for some frontend content, mainly styling and layout.
+it will run on localhost port 8000. SwaggerDocs [localhost:8000/docs](http://localhost:8000/docs)
 
 # Tools
 - Backend: FastApi, SQLAlchmey, Alembic, Docker
